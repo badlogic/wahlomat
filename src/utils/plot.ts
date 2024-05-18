@@ -46,8 +46,11 @@ export class Plot extends LitElement {
     selectionStartY = 0;
     isSelecting = false;
 
+    hoveredPoint?: PlotPoint = undefined;
+
     set mode(mode: PlotMode) {
         this.plotMode = mode;
+        this.hoveredPoint = undefined;
         this.draw();
     }
 
@@ -145,7 +148,7 @@ export class Plot extends LitElement {
         if (this.showLabels) {
             let labelsToDraw = this.points
                 .filter((point, index) => !this.pointsConfig[index].filtered)
-                .filter((point, index) => this.pointsConfig[index].selected)
+                .filter((point, index) => this.pointsConfig[index].selected || point == this.hoveredPoint)
                 .map((point) => {
                     const screenX = point.x * this.scale + this.offsetX;
                     const screenY = point.y * this.scale + this.offsetY;
@@ -257,17 +260,40 @@ export class Plot extends LitElement {
         };
 
         const handleMouseMove = (e: MouseEvent) => {
-            if (this.plotMode === "PanZoom" && this.dragging) {
-                this.offsetX += e.clientX - this.lastX;
-                this.offsetY += e.clientY - this.lastY;
-                this.lastX = e.clientX;
-                this.lastY = e.clientY;
-                this.draw();
-                this.ignoreClick = true;
+            if (this.plotMode === "PanZoom") {
+                if (this.dragging) {
+                    this.offsetX += e.clientX - this.lastX;
+                    this.offsetY += e.clientY - this.lastY;
+                    this.lastX = e.clientX;
+                    this.lastY = e.clientY;
+                    this.draw();
+                    this.ignoreClick = true;
+                    this.hoveredPoint = undefined;
+                } else {
+                    const { x, y } = this.getCanvasCoordinates(e);
+                    let closestPoint = undefined;
+                    let closestDist = Infinity;
+
+                    this.points.forEach((point, index) => {
+                        if (this.pointsConfig[index].filtered) return;
+                        const dist = Math.hypot(point.x - x, point.y - y);
+                        if (dist < 20 / this.scale && dist < closestDist) {
+                            closestDist = dist;
+                            closestPoint = point;
+                        }
+                    });
+
+                    this.hoveredPoint = closestPoint;
+                    this.draw();
+                    if (this.hoveredPoint) {
+                        console.log("Hovering");
+                    }
+                }
             } else if (this.plotMode === "BoxSelect" && this.isSelecting) {
                 this.lastX = e.clientX;
                 this.lastY = e.clientY;
                 this.draw();
+                this.hoveredPoint = undefined;
             }
         };
 
