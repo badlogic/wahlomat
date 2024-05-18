@@ -70,7 +70,24 @@ export class MainPage extends LitElement {
 
     async load() {
         try {
-            this.points = await loadData();
+            this.points = (await loadData())
+                .filter((p) => !p.text.includes("Keine konkreten Zahlen"))
+                .filter((p) => !p.text.includes("Unbenannter Plan"))
+                .filter((p) => !p.text.includes("wobei konkrete Zahlen zu den Forderungen"));
+            this.points.forEach((p) => {
+                p.text = p.text
+                    .replace("fpö-", "FPÖ -")
+                    .replace("spö-", "SPÖ -")
+                    .replace("övp-", "ÖVP -")
+                    .replace("grüne-", "GRÜNE -")
+                    .replace("neos-", "NEOS -")
+                    .replace("kpö-", "KPÖ -")
+                    .replace("kpö1.", "KPÖ -")
+                    .replace("kpö2.", "KPÖ -")
+                    .replace("kpö3.", "KPÖ -")
+                    .replace("kpö4.", "KPÖ -")
+                    .replace("kpö5.", "KPÖ -");
+            });
         } catch (e) {
             this.error = i18n("Couldn't load mesage");
             return;
@@ -97,15 +114,29 @@ export class MainPage extends LitElement {
                         <toggle-button .text=${"FPÖ"} .bgColor=${"#005DA8"} .changed=${() => this.filter()}></toggle-button>
                         <toggle-button .text=${"KPÖ"} .bgColor=${"#770000"} .changed=${() => this.filter()}></toggle-button>
                     </div>
-                    <toggle-button
-                        id="mode"
-                        .bgColor=${"#777"}
-                        .selected=${false}
-                        .text=${"Rechteckselektion"}
-                        .changed=${() => ((this.querySelector("scatter-plot") as Plot).mode = "BoxSelect")}
-                    >
-                    </toggle-button>
+                    <div class="flex gap-2">
+                        <toggle-button
+                            id="mode"
+                            .bgColor=${"#777"}
+                            .selected=${false}
+                            .text=${"Rechteckselektion"}
+                            .changed=${() => ((this.querySelector("scatter-plot") as Plot).mode = "BoxSelect")}
+                        >
+                        </toggle-button>
+
+                        <a
+                            href="https://x.com/badlogicgames/status/1791948524092789108"
+                            target="_blank"
+                            class="px-2 py-1 rounded-full cursor-pointer select-none border border-[#ccc] text-[#fff] bg-[#000]"
+                            >Anleitung</a
+                        >
+                    </div>
                 </div>
+                <span class="absolute bottom-0 mx-auto text-[#ccc] text-xs px-4 py-2"
+                    >Gebaut mit Spucke und Tixo von <a class="text-blue-400" target="_blank" href="https://twitter.com/badlogicgames">Mario Zechner</a
+                    ><br />Die Seite sammelt keine Daten, nicht einmal deine IP Adresse.
+                    <a class="text-blue-400" target="_blank" href="https://github.com/badlogic/wahlomat">Source Code</a></span
+                >
             </div>
         `;
     }

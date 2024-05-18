@@ -24,7 +24,7 @@ export class App extends LitElement {
         router.addRoute(
             "/",
             () => html`<main-page></main-page>`,
-            () => "app"
+            () => "Wahlomat"
         );
         router.addRoute(
             "/404",
