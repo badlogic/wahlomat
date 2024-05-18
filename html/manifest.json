@@ -1,7 +1,7 @@
 {
-    "name": "__app_name__",
-    "short_name": "__app_name__",
-    "description": "__app_description__",
+    "name": "wahlomat",
+    "short_name": "wahlomat",
+    "description": "Chat mit Wahlprogrammen",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#000c15",

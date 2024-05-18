@@ -6,3 +6,5 @@ src/.DS_Store
 .DS_Store
 html/version.json
 build
+html/data
+preprocessing/__pycache__

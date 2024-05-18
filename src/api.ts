@@ -83,3 +83,68 @@ export class Api {
         return apiGet<{ message: string }>("hello");
     }
 }
+
+export type Party = "spö" | "kpö" | "neos" | "övp" | "grüne" | "fpö";
+
+export type PartyStatement = {
+    x: number;
+    y: number;
+    party: Party;
+    text: string;
+    page: number;
+    color: string;
+};
+
+async function fetchFile(url: string) {
+    const response = await fetch(url);
+    const text = await response.text();
+    return text;
+}
+
+function parsePoints(data: string) {
+    return data
+        .trim()
+        .split("\n")
+        .map((line) => line.split("\t").map(Number));
+}
+
+function parseMeta(data: string) {
+    const lines = data.trim().split("\n").slice(1);
+    return lines.map((line) => {
+        const [party, page, statement] = line.split("\t");
+        return { party, page, statement };
+    });
+}
+
+function mapPartyToColor(party: string) {
+    const colorMap = {
+        spö: "#E42612", // Soft Red
+        neos: "#CA1A67", // Bright Pink
+        övp: "#60C3D0", // Light Turquoise
+        grüne: "#72A304", // Light Green
+        fpö: "#005DA8", // Light Blue
+        kpö: "#770000", // Deep Red
+    };
+    return colorMap[party.toLowerCase() as Party] || "black";
+}
+
+export async function loadData(): Promise<PartyStatement[]> {
+    const pointsData = await fetchFile("data/projection-2d.tsv");
+    const metaData = await fetchFile("data/vectors.meta.tsv");
+
+    const points = parsePoints(pointsData);
+    const meta = parseMeta(metaData);
+
+    const stmts: PartyStatement[] = [];
+    for (let i = 0; i < points.length; i++) {
+        stmts.push({
+            x: points[i][0],
+            y: points[i][1],
+            party: meta[i].party as Party,
+            text: meta[i].statement,
+            page: Number.parseInt(meta[i].page),
+            color: mapPartyToColor(meta[i].party),
+        });
+    }
+    return stmts;
+}

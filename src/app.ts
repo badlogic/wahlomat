@@ -31,11 +31,6 @@ export class App extends LitElement {
             () => renderError(i18n("Whoops, that page doesn't exist")),
             () => "404"
         );
-        router.addRoute(
-            "/settings",
-            () => html`<settings-page></settings-page>`,
-            () => "Settings"
-        );
 
         router.setRootRoute("/");
         router.setNotFoundRoot("/404");
