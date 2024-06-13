@@ -27,6 +27,16 @@ export class App extends LitElement {
             () => "Wahlomat"
         );
         router.addRoute(
+            "/europa2024",
+            () => html`<europa2024-page></europa2024-page>`,
+            () => "Wahlomat"
+        );
+        router.addRoute(
+            "/europa2024-turnout",
+            () => html`<europa2024-turnout-page></europa2024-turnout-page>`,
+            () => "Wahlomat"
+        );
+        router.addRoute(
             "/404",
             () => renderError(i18n("Whoops, that page doesn't exist")),
             () => "404"

@@ -147,8 +147,7 @@ export class Plot extends LitElement {
 
         if (this.showLabels) {
             let labelsToDraw = this.points
-                .filter((point, index) => !this.pointsConfig[index].filtered)
-                .filter((point, index) => this.pointsConfig[index].selected || point == this.hoveredPoint)
+                .filter((point, index) => !this.pointsConfig[index].filtered && (this.pointsConfig[index].selected || point == this.hoveredPoint))
                 .map((point) => {
                     const screenX = point.x * this.scale + this.offsetX;
                     const screenY = point.y * this.scale + this.offsetY;
