@@ -128,7 +128,15 @@ export class Europa2024TurnoutPage extends BaseElement {
         return html`
             <div class="w-full h-full relative flex flex-col items-center text-[#ccc] mt-8 gap-4">
                 <h1 class="z-10">Wahlbeteiligung - EU Wahl 2024</h1>
-                <span class="text-xs z-10">Ohne Wahlkarten auf Gemeindeebene, work in progress</span>
+                <span class="text-xs text-center z-10"
+                    >Ohne Wahlkarten auf Gemeindeebene, work in progress. Datenquelle:
+                    <a
+                        href="https://www.bmi.gv.at/412/Europawahlen/Europawahl_2024/files/vorlaeufiges_Endergebnis_inklusive_Wahlkarten.xlsx"
+                        target="_blank"
+                        class="text-blue-400"
+                        >BMI</a
+                    ></span
+                >
                 <div class="flex gap-2 z-10">
                     <label>
                         <input type="radio" name="region" @change=${() => this.changeLevel("laender")} />
