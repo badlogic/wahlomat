@@ -2,7 +2,7 @@
 set -e
 npm run build
 host=slayer.marioslab.io
-host_dir=/home/badlogic/wahlomat.marioslab.io
+host_dir=/home/badlogic/wahlomat.mariozechner.at
 current_date=$(date "+%Y-%m-%d %H:%M:%S")
 commit_hash=$(git rev-parse HEAD)
 echo "{\"date\": \"$current_date\", \"commit\": \"$commit_hash\"}" > html/version.json

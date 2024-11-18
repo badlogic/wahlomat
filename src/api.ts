@@ -128,9 +128,30 @@ function mapPartyToColor(party: string) {
     return colorMap[party.toLowerCase() as Party] || "black";
 }
 
-export async function loadData(): Promise<PartyStatement[]> {
-    const pointsData = await fetchFile("data/projection-2d.tsv");
-    const metaData = await fetchFile("data/vectors.meta.tsv");
+export async function loadDataEuropa2024(): Promise<PartyStatement[]> {
+    const pointsData = await fetchFile("data/europa2024/projection-2d.tsv");
+    const metaData = await fetchFile("data/europa2024/vectors.meta.tsv");
+
+    const points = parsePoints(pointsData);
+    const meta = parseMeta(metaData);
+
+    const stmts: PartyStatement[] = [];
+    for (let i = 0; i < points.length; i++) {
+        stmts.push({
+            x: points[i][0],
+            y: points[i][1],
+            party: meta[i].party as Party,
+            text: meta[i].statement,
+            page: Number.parseInt(meta[i].page),
+            color: mapPartyToColor(meta[i].party),
+        });
+    }
+    return stmts;
+}
+
+export async function loadDataRegierung2024(): Promise<PartyStatement[]> {
+    const pointsData = await fetchFile("data/regierung2024/projection-2d.tsv");
+    const metaData = await fetchFile("data/regierung2024/vectors.meta.tsv");
 
     const points = parsePoints(pointsData);
     const meta = parseMeta(metaData);

@@ -837,3 +837,46 @@ export function uploadJson(callback: (data: any) => void): void {
 
     inputElement.click();
 }
+
+@customElement("toggle-button")
+export class ToggleButton extends LitElement {
+    @property()
+    selected = true;
+
+    @property()
+    changed = (selected: boolean) => {};
+
+    @property()
+    fgColor = "#fff";
+
+    @property()
+    bgColor = "#333";
+
+    @property()
+    bgColorDimmed = "#000";
+
+    @property()
+    text: string = "toggle me";
+
+    protected createRenderRoot(): Element | ShadowRoot {
+        return this;
+    }
+
+    protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+        super.firstUpdated(_changedProperties);
+        const button = this.querySelector("div") as HTMLDivElement;
+        button.addEventListener("click", () => {
+            this.selected = !this.selected;
+            this.changed(this.selected);
+        });
+    }
+
+    render() {
+        return html`<div
+            class="px-2 py-1 rounded-full cursor-pointer select-none border border-[#ccc]"
+            style="color: ${this.fgColor}; background-color: ${this.selected ? this.bgColor : this.bgColorDimmed}"
+        >
+            ${this.text}
+        </div>`;
+    }
+}

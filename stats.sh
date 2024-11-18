@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 host=slayer.marioslab.io
-host_dir=/home/badlogic/wahlomat.marioslab.io
+host_dir=/home/badlogic/wahlomat.mariozechner.at
 scp $host:$host_dir/docker/data/logs/npmaccess.log access.log
 goaccess --keep-last=30 -f access.log -o report.html --log-format=COMBINED
 rm access.log

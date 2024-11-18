@@ -1,7 +1,7 @@
 {
   "app": {
-    "description": "Chat mit Wahlprogrammen",
-    "domain": "wahlomat.marioslab.io",
+    "description": "Wahlen & Wahlprogramme",
+    "domain": "wahlomat.mariozechner.at",
     "email": "badlogicgames@gmail.com",
     "host": "slayer.marioslab.io",
     "hostDir": "/home/badlogic",

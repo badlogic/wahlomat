@@ -1,53 +1,11 @@
 import { LitElement, PropertyValueMap, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { Party, PartyStatement, loadData } from "../api.js";
-import { renderError } from "../app.js";
+import { Party, PartyStatement, loadData, loadDataEuropa2024 } from "../api.js";
+import { renderError, ToggleButton } from "../app.js";
 import { i18n } from "../utils/i18n.js";
 import { pageContainerStyle } from "../utils/styles.js";
 import { Plot } from "../app.js";
 
-@customElement("toggle-button")
-export class ToggleButton extends LitElement {
-    @property()
-    selected = true;
-
-    @property()
-    changed = (selected: boolean) => {};
-
-    @property()
-    fgColor = "#fff";
-
-    @property()
-    bgColor = "#333";
-
-    @property()
-    bgColorDimmed = "#000";
-
-    @property()
-    text: string = "toggle me";
-
-    protected createRenderRoot(): Element | ShadowRoot {
-        return this;
-    }
-
-    protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-        super.firstUpdated(_changedProperties);
-        const button = this.querySelector("div") as HTMLDivElement;
-        button.addEventListener("click", () => {
-            this.selected = !this.selected;
-            this.changed(this.selected);
-        });
-    }
-
-    render() {
-        return html`<div
-            class="px-2 py-1 rounded-full cursor-pointer select-none border border-[#ccc]"
-            style="color: ${this.fgColor}; background-color: ${this.selected ? this.bgColor : this.bgColorDimmed}"
-        >
-            ${this.text}
-        </div>`;
-    }
-}
 
 @customElement("europa2024-page")
 export class Europa2024Page extends LitElement {
@@ -70,7 +28,7 @@ export class Europa2024Page extends LitElement {
 
     async load() {
         try {
-            this.points = (await loadData())
+            this.points = (await loadDataEuropa2024())
                 .filter((p) => !p.text.includes("Keine konkreten Zahlen"))
                 .filter((p) => !p.text.includes("Unbenannter Plan"))
                 .filter((p) => !p.text.includes("wobei konkrete Zahlen zu den Forderungen"));

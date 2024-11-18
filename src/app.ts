@@ -27,6 +27,11 @@ export class App extends LitElement {
             () => "Wahlomat"
         );
         router.addRoute(
+            "/regierung2024",
+            () => html`<regierung2024-page></regierung2024-page>`,
+            () => "Wahlomat"
+        );
+        router.addRoute(
             "/europa2024",
             () => html`<europa2024-page></europa2024-page>`,
             () => "Wahlomat"

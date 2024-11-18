@@ -2,9 +2,9 @@ version: "3"
 services:
     web:
         environment:
-            VIRTUAL_HOST: wahlomat.marioslab.io
-            LETSENCRYPT_HOST: wahlomat.marioslab.io
-            LETSENCRYPT_EMAIL: badlogicgames@gmail.com
+            VIRTUAL_HOST: wahlomat.mariozechner.at
+            LETSENCRYPT_HOST: wahlomat.mariozechner.at
+            LETSENCRYPT_EMAIL: contact@mariozechner.at
         networks:
             - reverse_proxy
 networks:

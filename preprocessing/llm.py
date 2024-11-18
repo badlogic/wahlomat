@@ -4,7 +4,7 @@ import os
 
 client = OpenAI(api_key = os.getenv("OPENAI_KEY"))
 messages = []
-model_name="gpt-3.5-turbo"
+model_name="gpt-4o-mini"
 max_tokens = 12000
 temperature=0
 
