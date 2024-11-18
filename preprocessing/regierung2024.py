@@ -32,7 +32,7 @@ def summarize_file(party, filename, outputfile):
         else:
             clear_history()
             summary = complete(f"""
-Dieser Text ist Teil eines Wahlprogramms. Extrahiere die Schlüsselpunkte aus dem Text, der durch ``` (drei Backticks) abgegrenzt ist, mit besonderem Fokus auf die Forderungen und Pläne der Partei. Gib Zahlen zu den Forderungen und Plänen an, falls vorhanden. Erfinde keine Forderungen, wenn du keine Forderungen im Text findest. Schreibe jede Forderung in einer eigenen Zeile mit einem vorangesetztem Minus-Zeichen. Schreibe nichts anderes als die Forderungen.
+Dieser Text, der durch ``` (drei Backticks) abgegrenzt ist, ist Teil eines Wahlprogramms. Extrahiere die konkreten Forderungen und Pläne der Partei aus dem Text. Gib jede Forderung zusammengefasst, kurz und prägnant wieder, inklusive etwaiger konkreter Zahlen. Erfinde keine Forderungen. Schreibe jede Forderung in einer eigenen Zeile mit einem vorangesetztem Minus-Zeichen. Schreibe nichts anderes als die extrahierten Forderungen.
 
 ```
 {page_text}

@@ -28,6 +28,8 @@ export class Regierung2024Page extends LitElement {
     async load() {
         try {
             this.points = (await loadDataRegierung2024())
+                .filter((p) => !p.text.includes("Keine spezifischen"))
+                .filter((p) => !p.text.includes("keine Forderungen"))
                 .filter((p) => !p.text.includes("Keine konkreten Zahlen"))
                 .filter((p) => !p.text.includes("Unbenannter Plan"))
                 .filter((p) => !p.text.includes("wobei konkrete Zahlen zu den Forderungen"));
