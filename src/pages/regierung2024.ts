@@ -83,7 +83,7 @@ export class Regierung2024Page extends LitElement {
                         </toggle-button>
 
                         <a
-                            href="https://x.com/badlogicgames/status/1791948524092789108"
+                            href="https://bsky.app/profile/badlogic.bsky.social/post/3lbassmb2q222"
                             target="_blank"
                             class="px-2 py-1 rounded-full cursor-pointer select-none border border-[#ccc] text-[#fff] bg-[#000]"
                             >Anleitung</a
