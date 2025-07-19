@@ -8,3 +8,4 @@ html/version.json
 build
 html/data
 preprocessing/__pycache__
+docker/.env

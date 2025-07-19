@@ -19,8 +19,12 @@ services:
             context: .
             dockerfile: Dockerfile
         stop_grace_period: 0s
+        env_file: .env
         environment:
             PORT: 3333
+            WAHLOMAT_DB: ${WAHLOMAT_DB}
+            WAHLOMAT_DB_USER: ${WAHLOMAT_DB_USER}
+            WAHLOMAT_DB_PASSWORD: ${WAHLOMAT_DB_PASSWORD}
         volumes:
             - ./data:/data
             - ../:/app
